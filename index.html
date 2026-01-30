@@ -1,15 +1,20 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Post App</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
- <link rel="stylesheet" href="style.css">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>CV Making App</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+		integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+	<link rel="stylesheet" href="style.css">
 </head>
-  <body>
- <div id="container" class="container321">
+
+<body>
+	<div id="container" class="container321">
 		<!-- FORM SECTION -->
 		<div class="row">
 			<!-- SIGN UP -->
@@ -17,24 +22,30 @@
 				<div class="form-wrapper align-items-center">
 					<div class="form sign-up">
 						<div class="input-group">
-							<i class='bx bxs-user'></i>
+							<i class='fa-solid fa-user input-icon'></i>
 							<input type="text" placeholder="Username" id="name">
 						</div>
+						<small class="error-msg" id="nameError"></small>
 						<div class="input-group">
-							<i class='bx bx-mail-send'></i>
+							<i class='fa-solid fa-envelope input-icon'></i>
 							<input type="email" placeholder="Email" id="email">
 						</div>
+						<small class="error-msg" id="emailError"></small>
 						<div class="input-group">
-							<i class='bx bxs-lock-alt'></i>
+							<i class='fa-solid fa-lock input-icon'></i>
 							<input type="password" placeholder="Password" id="pswrd">
+							<i class="fa-solid fa-eye toggle-password" toggle="#pswrd"></i>
 						</div>
+						<small class="error-msg" id="pswrdError"></small>
 						<div class="input-group">
-							<i class='bx bxs-lock-alt'></i>
+							<i class='fa-solid fa-lock input-icon'></i>
 							<input type="password" placeholder="Confirm password" id="cpswrd">
+							<i class="fa-solid fa-eye toggle-password" toggle="#cpswrd"></i>
 						</div>
+						<small class="error-msg" id="cpswrdError"></small>
 						<button onclick="render()">
-    Sign up
-</button>
+							Sign up
+						</button>
 						<p>
 							<span>
 								Already have an account?
@@ -45,7 +56,7 @@
 						</p>
 					</div>
 				</div>
-			
+
 			</div>
 			<!-- END SIGN UP -->
 			<!-- SIGN IN -->
@@ -53,13 +64,16 @@
 				<div class="form-wrapper align-items-center">
 					<div class="form sign-in">
 						<div class="input-group">
-							<i class='bx bxs-user'></i>
-							<input type="text" placeholder="Username" id="username">
+							<i class='fa-solid fa-user input-icon'></i>
+							<input type="text" placeholder="Useremail" id="useremail">
 						</div>
+						<small class="error-msg" id="useremailError"></small>
 						<div class="input-group">
-							<i class='bx bxs-lock-alt'></i>
+							<i class='fa-solid fa-lock input-icon'></i>
 							<input type="password" placeholder="Password" id="userpswrd" required>
+							<i class="fa-solid fa-eye toggle-password" toggle="#userpswrd"></i>
 						</div>
+						<small class="error-msg" id="passwordError"></small>
 						<button onclick="signIn()">
 							Sign in
 						</button>
@@ -79,7 +93,7 @@
 					</div>
 				</div>
 				<div class="form-wrapper">
-		
+
 				</div>
 			</div>
 			<!-- END SIGN IN -->
@@ -93,30 +107,34 @@
 					<h2>
 						Welcome
 					</h2>
-	
+
 				</div>
 				<div class="img sign-in">
-		
+
 				</div>
 			</div>
 			<!-- END SIGN IN CONTENT -->
 			<!-- SIGN UP CONTENT -->
 			<div class="col align-items-center flex-col">
 				<div class="img sign-up">
-				
+
 				</div>
 				<div class="text sign-up">
 					<h2>
 						Join with us
 					</h2>
-	
+
 				</div>
 			</div>
 			<!-- END SIGN UP CONTENT -->
 		</div>
 		<!-- END CONTENT SECTION -->
 	</div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <script src="app.js"></script>
-  </body>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="app.js"></script>
+</body>
+
 </html>

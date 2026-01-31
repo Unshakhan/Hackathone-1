@@ -54,71 +54,79 @@
       </div>
   </nav>
   <div class="cv-wrapper">
-    <div class="cv-card shadow-lg">
-      <h2 class="text-center mb-4 fw-bold custom-title-cv">Professional CV Builder</h2>
+    <div class="text-center mb-4">
+      <button class="btn btn-outline-primary rounded-pill px-4" onclick="toggleCVForm()">
+        <i class="fa-solid fa-pen-to-square"></i> Manage Your Details
+      </button>
+    </div>
 
-      <form id="cvForm" onsubmit="event.preventDefault(); saveCV();">
-        <div class="row">
-          <!-- Full Name -->
-          <div class="col-md-12 mb-3">
-            <label for="fullName" class="form-label fw-semibold">Full Name</label>
-            <input type="text" class="form-control rounded-pill" id="fullName" placeholder="Enter your full name"
-              required>
-          </div>
+    <div id="cvFormContainer">
+      <div class="cv-card shadow-lg">
+        <h2 class="text-center mb-4 fw-bold custom-title-cv">Professional CV Builder</h2>
 
-          <!-- Email & Phone -->
-          <div class="col-md-6 mb-3">
-            <label for="email" class="form-label fw-semibold">Email</label>
-            <input type="email" class="form-control rounded-pill" id="email" placeholder="example@email.com" required>
-          </div>
-          <div class="col-md-6 mb-3">
-            <label for="phone" class="form-label fw-semibold">Phone Number</label>
-            <input type="tel" class="form-control rounded-pill" id="phone" placeholder="+1 234 567 890" required>
-          </div>
+        <form id="cvForm" onsubmit="event.preventDefault(); saveCV();">
+          <div class="row">
+            <!-- Full Name -->
+            <div class="col-md-12 mb-3">
+              <label for="fullName" class="form-label fw-semibold">Full Name</label>
+              <input type="text" class="form-control rounded-pill" id="fullName" placeholder="Enter your full name"
+                required>
+            </div>
 
-          <!-- Professional Summary -->
-          <div class="col-12 mb-3">
-            <label for="summary" class="form-label fw-semibold">Professional Summary</label>
-            <textarea class="form-control rounded-3" id="summary" rows="3"
-              placeholder="Write a short professional summary..."></textarea>
-          </div>
+            <!-- Email & Phone -->
+            <div class="col-md-6 mb-3">
+              <label for="email" class="form-label fw-semibold">Email</label>
+              <input type="email" class="form-control rounded-pill" id="email" placeholder="example@email.com" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="phone" class="form-label fw-semibold">Phone Number</label>
+              <input type="tel" class="form-control rounded-pill" id="phone" placeholder="+1 234 567 890" required>
+            </div>
 
-          <!-- Work Experience -->
-          <div class="col-12 mb-3">
-            <label for="experience" class="form-label fw-semibold">Work Experience</label>
-            <textarea class="form-control rounded-3" id="experience" rows="4"
-              placeholder="• Job Title at Company (Year) - Description..."></textarea>
-          </div>
+            <!-- Professional Summary -->
+            <div class="col-12 mb-3">
+              <label for="summary" class="form-label fw-semibold">Professional Summary</label>
+              <textarea class="form-control rounded-3" id="summary" rows="3"
+                placeholder="Write a short professional summary..."></textarea>
+            </div>
 
-          <!-- Education -->
-          <div class="col-12 mb-3">
-            <label for="education" class="form-label fw-semibold">Education</label>
-            <textarea class="form-control rounded-3" id="education" rows="3"
-              placeholder="• Degree, University (Year)"></textarea>
-          </div>
+            <!-- Work Experience -->
+            <div class="col-12 mb-3">
+              <label for="experience" class="form-label fw-semibold">Work Experience</label>
+              <textarea class="form-control rounded-3" id="experience" rows="4"
+                placeholder="• Job Title at Company (Year) - Description..."></textarea>
+            </div>
 
-          <!-- Skills -->
-          <div class="col-12 mb-3">
-            <label for="skills" class="form-label fw-semibold">Skills</label>
-            <textarea class="form-control rounded-3" id="skills" rows="2"
-              placeholder="e.g. JavaScript, HTML, CSS, Project Management..."></textarea>
-          </div>
+            <!-- Education -->
+            <div class="col-12 mb-3">
+              <label for="education" class="form-label fw-semibold">Education</label>
+              <textarea class="form-control rounded-3" id="education" rows="3"
+                placeholder="• Degree, University (Year)"></textarea>
+            </div>
 
-          <!-- Projects (Optional) -->
-          <div class="col-12 mb-3">
-            <label for="projects" class="form-label fw-semibold">Projects <small
-                class="text-muted">(Optional)</small></label>
-            <textarea class="form-control rounded-3" id="projects" rows="3"
-              placeholder="Describe your key projects..."></textarea>
-          </div>
+            <!-- Skills -->
+            <div class="col-12 mb-3">
+              <label for="skills" class="form-label fw-semibold">Skills</label>
+              <textarea class="form-control rounded-3" id="skills" rows="2"
+                placeholder="e.g. JavaScript, HTML, CSS, Project Management..."></textarea>
+            </div>
 
-          <!-- Submit Button -->
-          <div class="col-12 mt-3 text-center">
-            <button type="submit" class="btn btn-submit px-5 py-2 rounded-pill fw-bold shadow-sm">Save CV</button>
-          </div>
+            <!-- Projects (Optional) -->
+            <div class="col-12 mb-3">
+              <label for="projects" class="form-label fw-semibold">Projects <small
+                  class="text-muted">(Optional)</small></label>
+              <textarea class="form-control rounded-3" id="projects" rows="3"
+                placeholder="Describe your key projects..."></textarea>
+            </div>
 
-        </div>
-      </form>
+            <!-- Submit Button -->
+            <div class="col-12 mt-3 text-center">
+              <button type="submit" class="btn btn-submit px-5 py-2 rounded-pill fw-bold shadow-sm">Save CV</button>
+            </div>
+
+          </div>
+        </form>
+      </div>
     </div>
 
     <!-- Canva-style Template Selector -->

@@ -148,7 +148,9 @@ function loadCV() {
         return;
     }
 
-    let cvData = JSON.parse(localStorage.getItem("cvData"));
+    const cvData = JSON.parse(localStorage.getItem("cvData"));
+    const formContainer = document.getElementById("cvFormContainer");
+
     if (cvData) {
         document.getElementById("fullName").value = cvData.fullName || "";
         document.getElementById("email").value = cvData.email || "";
@@ -158,6 +160,11 @@ function loadCV() {
         document.getElementById("education").value = cvData.education || "";
         document.getElementById("skills").value = cvData.skills || "";
         document.getElementById("projects").value = cvData.projects || "";
+
+        // Hide form if data already exists
+        if (formContainer) {
+            formContainer.style.display = "none";
+        }
     } else {
         document.getElementById("fullName").value = userData.name || "";
         document.getElementById("email").value = userData.email || "";
@@ -177,6 +184,12 @@ function saveCV() {
     };
 
     localStorage.setItem("cvData", JSON.stringify(cvData));
+
+    // Hide form after saving
+    const formContainer = document.getElementById("cvFormContainer");
+    if (formContainer) {
+        formContainer.style.display = "none";
+    }
 
     Swal.fire({
         title: "Saved!",
@@ -648,3 +661,14 @@ function getStorageData(key, defaultValue = null) {
 let userData = getStorageData('data', {});
 let cvData = getStorageData('cvData', {});
 
+function toggleCVForm() {
+    const formContainer = document.getElementById("cvFormContainer");
+    if (formContainer) {
+        if (formContainer.style.display === "none") {
+            formContainer.style.display = "block";
+            formContainer.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            formContainer.style.display = "none";
+        }
+    }
+}

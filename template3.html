@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Center Template</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: #fffafa;
+        }
+
+        .cv-paper {
+            background: var(--cv-bg-paper);
+            max-width: 800px;
+            margin: 40px auto;
+            min-height: 1100px;
+            padding: 80px 60px;
+            box-shadow: var(--cv-shadow);
+            border-radius: 4px;
+            text-align: center;
+            position: relative;
+            animation: popIn 0.8s ease-in-out;
+        }
+
+        .creative-header {
+            margin-bottom: 60px;
+        }
+
+        .creative-header h1 {
+            font-family: var(--cv-font-heading);
+            font-weight: 800;
+            font-size: 3.5rem;
+            color: var(--cv-primary-color);
+            letter-spacing: 5px;
+            margin-bottom: 5px;
+        }
+
+        .creative-header p {
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--cv-text-light);
+            font-size: 0.9rem;
+        }
+
+        .premium-section-title {
+            color: var(--cv-text-dark);
+            font-family: var(--cv-font-heading);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 1rem;
+            letter-spacing: 3px;
+            margin-top: 50px;
+            margin-bottom: 25px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .premium-section-title::after {
+            content: "";
+            position: absolute;
+            left: 20%;
+            right: 20%;
+            bottom: -8px;
+            height: 2px;
+            background: var(--cv-primary-color);
+        }
+
+        .content-body p,
+        .content-body div {
+            color: var(--cv-text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="download-btn-floating" onclick="window.print()">
+        <i class="fa-solid fa-download"></i> Download PDF
+    </button>
+    <div class="cv-paper">
+        <div class="profile-pic-container mx-auto mb-4" onclick="document.getElementById('dpInput').click()">
+            <img id="view-dp" src="" style="display: none;">
+            <i class="fa-solid fa-user"></i>
+            <div class="upload-overlay">Change Photo</div>
+            <input type="file" id="dpInput" style="display: none;" onchange="uploadProfilePic(this)" accept="image/*">
+        </div>
+
+        <div class="creative-header editable-section">
+            <h1 id="view-fullName"></h1>
+            <p id="view-header-info"></p>
+            <div class="section-actions">
+                <button class="btn-action edit" onclick="window.location.href='post.html'"><i
+                        class="fa-solid fa-pen"></i></button>
+            </div>
+        </div>
+
+        <div class="content-body">
+            <div class="editable-section">
+                <h4 class="premium-section-title">About Me</h4>
+                <p id="view-summary"></p>
+                <div class="section-actions">
+                    <button class="btn-action edit" onclick="window.location.href='post.html'"><i
+                            class="fa-solid fa-pen"></i></button>
+                </div>
+            </div>
+
+            <div class="editable-section">
+                <h4 class="premium-section-title">Experience</h4>
+                <div id="view-experience" style="white-space: pre-line;"></div>
+                <div class="section-actions">
+                    <button class="btn-action edit" onclick="window.location.href='post.html'"><i
+                            class="fa-solid fa-pen"></i></button>
+                    <button class="btn-action delete" onclick="this.parentElement.parentElement.remove()"><i
+                            class="fa-solid fa-trash"></i></button>
+                </div>
+            </div>
+
+            <div class="editable-section">
+                <h4 class="premium-section-title">Education</h4>
+                <div id="view-education" style="white-space: pre-line;"></div>
+                <div class="section-actions">
+                    <button class="btn-action edit" onclick="window.location.href='post.html'"><i
+                            class="fa-solid fa-pen"></i></button>
+                </div>
+            </div>
+
+            <div class="editable-section">
+                <h4 class="premium-section-title">Skills</h4>
+                <div id="view-skills" style="white-space: pre-line;"></div>
+                <div class="section-actions">
+                    <button class="btn-action edit" onclick="window.location.href='post.html'"><i
+                            class="fa-solid fa-pen"></i></button>
+                </div>
+            </div>
+
+            <div class="editable-section">
+                <h4 class="premium-section-title">Projects</h4>
+                <div id="view-projects" style="white-space: pre-line;"></div>
+                <div class="section-actions">
+                    <button class="btn-action edit" onclick="window.location.href='post.html'"><i
+                            class="fa-solid fa-pen"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const designId = urlParams.get('designId');
+            const isBlank = urlParams.get('blank') === 'true';
+
+            initTheme();
+            loadDesignStyles(designId);
+            initEditor('template3.html');
+
+            let cvData = isBlank ? {} : (JSON.parse(localStorage.getItem("cvData")) || {});
+            let dummy = isBlank ? {} : getDummyData();
+            const data = cvData || dummy;
+
+            document.getElementById("view-fullName").innerText = (cvData.fullName || dummy.fullName || "").toUpperCase();
+
+            let email = cvData.email || dummy.email || "";
+            let phone = cvData.phone || dummy.phone || "";
+            document.getElementById("view-header-info").innerText = (email || phone) ? `${email} | ${phone}` : "";
+
+            document.getElementById("view-summary").innerText = cvData.summary || dummy.summary || "";
+            document.getElementById("view-experience").innerText = cvData.experience || dummy.experience || "";
+            document.getElementById("view-education").innerText = cvData.education || dummy.education || "";
+            document.getElementById("view-skills").innerText = cvData.skills || dummy.skills || "";
+            document.getElementById("view-projects").innerText = cvData.projects || dummy.projects || "";
+
+            if (cvData.profilePic) {
+                updateDPUI(cvData.profilePic);
+            }
+        });
+    </script>
+</body>
+
+</html>

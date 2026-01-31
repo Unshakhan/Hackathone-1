@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CV Making App</title>
+  <title>Resume Love - Professional Resume Builder</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
     integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -13,25 +13,308 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body
- style="overflow-y: auto;">
+<body>
   <nav class="navbar" id="mainNav">
     <div class="container-fluid">
-      <span class="navbar-brand mb-0 h1" id="navBrand"></span>
-      <!-- <i class="fa-regular fa-circle-user" id="logout"></i> -->
-      <div id="logout"></div>
-      <i class=" logout fa-solid fa-circle-user" id="logout" onclick="logout()" title="Logout"></i>
-      <!-- <button class="logout px-2 py-1" onclick="logout()">log out</button> -->
-    </div>
+      <a class="navbar-brand d-flex align-items-center" href="post.html" style="text-decoration: none;">
+        <h1 class="logo-text">
+          <i class="fa-solid fa-paintbrush"></i>
+          Resume Love
+        </h1>
+      </a>
+      <div class="d-flex align-items-center">
+        <!-- THEME TOGGLE (SUN/MOON) -->
+        <div class="theme-switch-wrapper me-3">
+          <label class="theme-switch" for="theme-toggle">
+            <input type="checkbox" id="theme-toggle" onchange="toggleTheme()">
+            <div class="slider">
+              <div class="scenery">
+                <i class="fas fa-sun sun"></i>
+                <i class="fas fa-moon moon"></i>
+              </div>
+            </div>
+          </label>
+        </div>
+
+        <div class="user-profile-menu" id="userMenuContainer">
+          <div class="navbar-dp" onclick="toggleUserMenu()">
+            <img id="nav-user-dp" src="" style="display: none;">
+            <span id="nav-user-initial"></span>
+          </div>
+          <div class="user-dropdown" id="userDropdown">
+            <button onclick="triggerNavbarDPUpload()">
+              <i class="fa-solid fa-camera"></i> Change DP
+            </button>
+            <button onclick="logout()">
+              <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </button>
+          </div>
+          <input type="file" id="navbarDpInput" style="display: none;" onchange="uploadNavbarDP(this)" accept="image/*">
+        </div>
+      </div>
   </nav>
+  <div class="cv-wrapper">
+    <div class="cv-card shadow-lg">
+      <h2 class="text-center mb-4 fw-bold custom-title-cv">Professional CV Builder</h2>
 
+      <form id="cvForm" onsubmit="event.preventDefault(); saveCV();">
+        <div class="row">
+          <!-- Full Name -->
+          <div class="col-md-12 mb-3">
+            <label for="fullName" class="form-label fw-semibold">Full Name</label>
+            <input type="text" class="form-control rounded-pill" id="fullName" placeholder="Enter your full name"
+              required>
+          </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+          <!-- Email & Phone -->
+          <div class="col-md-6 mb-3">
+            <label for="email" class="form-label fw-semibold">Email</label>
+            <input type="email" class="form-control rounded-pill" id="email" placeholder="example@email.com" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="phone" class="form-label fw-semibold">Phone Number</label>
+            <input type="tel" class="form-control rounded-pill" id="phone" placeholder="+1 234 567 890" required>
+          </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-    crossorigin="anonymous"></script>
-  <script src="app.js"></script>
+          <!-- Professional Summary -->
+          <div class="col-12 mb-3">
+            <label for="summary" class="form-label fw-semibold">Professional Summary</label>
+            <textarea class="form-control rounded-3" id="summary" rows="3"
+              placeholder="Write a short professional summary..."></textarea>
+          </div>
+
+          <!-- Work Experience -->
+          <div class="col-12 mb-3">
+            <label for="experience" class="form-label fw-semibold">Work Experience</label>
+            <textarea class="form-control rounded-3" id="experience" rows="4"
+              placeholder="• Job Title at Company (Year) - Description..."></textarea>
+          </div>
+
+          <!-- Education -->
+          <div class="col-12 mb-3">
+            <label for="education" class="form-label fw-semibold">Education</label>
+            <textarea class="form-control rounded-3" id="education" rows="3"
+              placeholder="• Degree, University (Year)"></textarea>
+          </div>
+
+          <!-- Skills -->
+          <div class="col-12 mb-3">
+            <label for="skills" class="form-label fw-semibold">Skills</label>
+            <textarea class="form-control rounded-3" id="skills" rows="2"
+              placeholder="e.g. JavaScript, HTML, CSS, Project Management..."></textarea>
+          </div>
+
+          <!-- Projects (Optional) -->
+          <div class="col-12 mb-3">
+            <label for="projects" class="form-label fw-semibold">Projects <small
+                class="text-muted">(Optional)</small></label>
+            <textarea class="form-control rounded-3" id="projects" rows="3"
+              placeholder="Describe your key projects..."></textarea>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="col-12 mt-3 text-center">
+            <button type="submit" class="btn btn-submit px-5 py-2 rounded-pill fw-bold shadow-sm">Save CV</button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+
+    <!-- Canva-style Template Selector -->
+    <div class="template-section container custom-container mt-5 mb-5">
+      <div class="template-section">
+        <h4 class="custom-title-cv text-center mb-5" style="font-size: 2rem;">Your Saved Designs</h4>
+        <div class="canva-grid mb-5" id="myDesignsGrid">
+          <!-- Populated via JS -->
+          <div class="canva-card d-flex justify-content-center align-items-center"
+            style="border: 2px dashed #ccc; aspect-ratio: 3/4; border-radius: 12px; background: #fafafa;">
+            <p class="text-muted small px-3 text-center">Your saved designs will appear here</p>
+          </div>
+        </div>
+
+        <h4 class="custom-title-cv text-center mb-5" style="font-size: 2rem;">Recommended Templates</h4>
+        <div class="canva-grid">
+          <!-- Template: Blank -->
+          <div class="canva-card" onclick="selectTemplate('template1.html?blank=true')">
+            <div class="canva-preview">
+              <div class="mockup-page" style="border: 1px solid #eee; background: white;">
+                <div class="d-flex justify-content-center align-items-center h-100">
+                  <i class="fa-solid fa-file fa-3x text-light"></i>
+                </div>
+              </div>
+            </div>
+            <div class="canva-info">
+              <h5>Start from Blank</h5>
+              <p>Clean slate</p>
+            </div>
+          </div>
+
+          <!-- Template 1: Modern -->
+          <div class="canva-card" onclick="selectTemplate('template1.html')">
+            <div class="canva-preview">
+              <!-- CSS Mockup for Modern -->
+              <div class="mockup-page">
+                <div class="mockup-header"></div>
+                <div class="mockup-body">
+                  <!-- Animated Background -->
+                  <div class="background-container">
+                    <div class="ping-pong-ball"></div>
+                    <div class="ping-pong-ball"></div>
+                    <div class="ping-pong-ball"></div>
+                    <div class="ping-pong-ball"></div>
+                    <div class="ping-pong-ball"></div>
+                    <div class="ping-pong-ball"></div>
+                    <div class="ping-pong-ball"></div>
+                    <div class="ping-pong-ball"></div>
+                    <div class="ping-pong-ball"></div>
+                    <div class="ping-pong-ball"></div>
+                    <!-- New Balls -->
+                    <div class="ping-pong-ball"></div>
+                    <div class="ping-pong-ball"></div>
+                    <div class="ping-pong-ball"></div>
+                    <div class="ping-pong-ball"></div>
+                    <div class="ping-pong-ball"></div>
+                    <div class="ping-pong-ball"></div>
+                    <div class="ping-pong-ball"></div>
+                    <div class="ping-pong-ball"></div>
+                    <div class="ping-pong-ball"></div>
+                    <div class="ping-pong-ball"></div>
+                  </div>
+                  <div class="mockup-line w-100"></div>
+                  <div class="mockup-line w-75"></div>
+                  <div class="mockup-block"></div>
+                </div>
+              </div>
+            </div>
+            <div class="canva-info">
+              <h5>Modern Clean</h5>
+              <p>Minimalist & Clear</p>
+            </div>
+          </div>
+
+          <!-- Template 2: Professional -->
+          <div class="canva-card" onclick="selectTemplate('template2.html')">
+            <div class="canva-preview">
+              <!-- CSS Mockup for Sidebar -->
+              <div class="mockup-page d-flex">
+                <div class="mockup-sidebar"></div>
+                <div class="mockup-body flex-grow-1 p-1">
+                  <div class="mockup-header sm"></div>
+                  <div class="mockup-line w-100"></div>
+                  <div class="mockup-line w-50"></div>
+                </div>
+              </div>
+            </div>
+            <div class="canva-info">
+              <h5>Professional Side</h5>
+              <p>Corporate & Structured</p>
+            </div>
+          </div>
+
+          <!-- Template 3: Creative -->
+          <div class="canva-card" onclick="selectTemplate('template3.html')">
+            <div class="canva-preview">
+              <!-- CSS Mockup for Creative -->
+              <div class="mockup-page text-center">
+                <div class="mockup-circle mx-auto"></div>
+                <div class="mockup-header sm mx-auto mt-1"></div>
+                <div class="mockup-line w-75 mx-auto"></div>
+              </div>
+            </div>
+            <div class="canva-info">
+              <h5>Creative Center</h5>
+              <p>Bold & Artistic</p>
+            </div>
+          </div>
+
+          <!-- Template 4: Executive -->
+          <div class="canva-card" onclick="selectTemplate('template4.html')">
+            <div class="canva-preview">
+              <!-- CSS Mockup for Executive -->
+              <div class="mockup-page d-flex">
+                <div class="mockup-sidebar" style="background: #2d3436;">
+                  <div class="mockup-circle mx-auto mt-2" style="width: 15px; height: 15px;"></div>
+                  <div class="mockup-line w-75 mx-auto mt-2"></div>
+                </div>
+                <div class="mockup-body flex-grow-1 p-1">
+                  <div class="mockup-header sm mt-1"></div>
+                  <div class="mockup-line w-100"></div>
+                  <div class="mockup-line w-75"></div>
+                </div>
+              </div>
+            </div>
+            <div class="canva-info">
+              <h5>Executive Photo</h5>
+              <p>Modern & Authoritative</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"></script>
+    <script src="app.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        loadMyDesigns();
+      });
+
+      function loadMyDesigns() {
+        const grid = document.getElementById('myDesignsGrid');
+        const designs = JSON.parse(localStorage.getItem('myDesigns')) || [];
+
+        if (designs.length > 0) {
+          grid.innerHTML = '';
+          designs.forEach(design => {
+            const card = document.createElement('div');
+            card.className = 'canva-card';
+            card.onclick = () => selectTemplate(`${design.templateId}?designId=${design.id}`);
+
+            card.innerHTML = `
+              <div class="canva-preview" style="animation: popIn 0.5s ease-out forwards;">
+                <div class="mockup-page" style="background: ${design.styles['--cv-primary-color'] || '#eee'}">
+                  <div class="d-flex justify-content-center align-items-center h-100 text-white">
+                    <i class="fa-solid fa-file-invoice fa-3x"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="canva-info">
+                <h5>Saved Design</h5>
+                <p>Created on ${design.date}</p>
+                <button class="btn btn-action delete mt-2" onclick="event.stopPropagation(); deleteDesign(${design.id})" title="Delete Design">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </div>
+            `;
+            grid.appendChild(card);
+          });
+        }
+      }
+
+      function deleteDesign(id) {
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            let designs = JSON.parse(localStorage.getItem('myDesigns')) || [];
+            designs = designs.filter(d => d.id !== id);
+            localStorage.setItem('myDesigns', JSON.stringify(designs));
+            loadMyDesigns();
+          }
+        });
+      }
+    </script>
 </body>
 
 </html>

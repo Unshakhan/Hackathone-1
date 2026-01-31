@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Side Template</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: #eef2f5;
+        }
+
+        .cv-paper {
+            background: var(--cv-bg-paper);
+            max-width: 900px;
+            margin: 40px auto;
+            min-height: 1100px;
+            display: flex;
+            box-shadow: var(--cv-shadow);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .sidebar {
+            width: 35%;
+            background: var(--cv-primary-color);
+            color: white;
+            padding: 50px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .sidebar h1 {
+            font-family: var(--cv-font-heading);
+            font-weight: 700;
+            font-size: 2.2rem;
+            line-height: 1.1;
+            margin-bottom: 5px;
+        }
+
+        .sidebar .contact-item {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .sidebar-section-title {
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 10px;
+            margin-top: 20px;
+        }
+
+        .main-content {
+            width: 65%;
+            padding: 60px 50px;
+            background: white;
+        }
+
+        .premium-section-title {
+            color: var(--cv-text-dark);
+            font-family: var(--cv-font-heading);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            border-left: 5px solid var(--cv-primary-color);
+            padding-left: 15px;
+        }
+
+        .sidebar i {
+            width: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="download-btn-floating" onclick="window.print()">
+        <i class="fa-solid fa-download"></i> Download PDF
+    </button>
+    <div class="cv-paper cv-container">
+        <div class="sidebar">
+            <div class="profile-pic-container mx-auto mb-4" style="border-color: rgba(255,255,255,0.2);"
+                onclick="document.getElementById('dpInput').click()">
+                <img id="view-dp" src="" style="display: none;">
+                <i class="fa-solid fa-user" style="color: rgba(255,255,255,0.3);"></i>
+                <div class="upload-overlay">Change Photo</div>
+                <input type="file" id="dpInput" style="display: none;" onchange="uploadProfilePic(this)"
+                    accept="image/*">
+            </div>
+
+            <div class="editable-section mt-2">
+                <h1 id="view-fullName"
+                    style="color: white; font-size: 2.22rem; font-weight: 700; border-bottom: 2px solid rgba(255,255,255,0.2); padding-bottom: 15px;">
+                </h1>
+                <div class="mt-4">
+                    <div class="contact-item"><i class="fa-solid fa-envelope"></i> <span id="view-email"></span></div>
+                    <div class="contact-item"><i class="fa-solid fa-phone"></i> <span id="view-phone"></span></div>
+                </div>
+                <div class="section-actions">
+                    <button class="btn-action edit" onclick="window.location.href='post.html'"><i
+                            class="fa-solid fa-pen"></i></button>
+                </div>
+            </div>
+
+            <div class="editable-section mt-4">
+                <h5 class="sidebar-section-title">Skills</h5>
+                <div id="view-skills" style="white-space: pre-line; font-size: 0.95rem; opacity: 0.9;"></div>
+                <div class="section-actions">
+                    <button class="btn-action edit" onclick="window.location.href='post.html'"><i
+                            class="fa-solid fa-pen"></i></button>
+                </div>
+            </div>
+
+            <div class="editable-section mt-4">
+                <h5 class="sidebar-section-title">Education</h5>
+                <div id="view-education" style="white-space: pre-line; font-size: 0.95rem; opacity: 0.9;"></div>
+                <div class="section-actions">
+                    <button class="btn-action edit" onclick="window.location.href='post.html'"><i
+                            class="fa-solid fa-pen"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="editable-section mb-5">
+                <h4 class="premium-section-title">Profile Summary</h4>
+                <p id="view-summary" style="line-height: 1.8; color: var(--cv-text-light);"></p>
+                <div class="section-actions">
+                    <button class="btn-action edit" onclick="window.location.href='post.html'"><i
+                            class="fa-solid fa-pen"></i></button>
+                </div>
+            </div>
+
+            <div class="editable-section mb-5">
+                <h4 class="premium-section-title">Experience</h4>
+                <div id="view-experience" style="white-space: pre-line; line-height: 1.8;"></div>
+                <div class="section-actions">
+                    <button class="btn-action edit" onclick="window.location.href='post.html'"><i
+                            class="fa-solid fa-pen"></i></button>
+                    <button class="btn-action delete" onclick="this.parentElement.parentElement.remove()"><i
+                            class="fa-solid fa-trash"></i></button>
+                </div>
+            </div>
+
+            <div class="editable-section">
+                <h4 class="premium-section-title">Featured Projects</h4>
+                <div id="view-projects" style="white-space: pre-line; line-height: 1.8;"></div>
+                <div class="section-actions">
+                    <button class="btn-action edit" onclick="window.location.href='post.html'"><i
+                            class="fa-solid fa-pen"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const designId = urlParams.get('designId');
+
+            const isBlank = urlParams.get('blank') === 'true';
+
+            initTheme();
+            loadDesignStyles(designId);
+            initEditor('template2.html');
+
+            let cvData = isBlank ? {} : (JSON.parse(localStorage.getItem("cvData")) || {});
+            let dummy = isBlank ? {} : getDummyData();
+
+            document.getElementById("view-fullName").innerText = cvData.fullName || dummy.fullName || "";
+            document.getElementById("view-email").innerText = cvData.email || dummy.email || "";
+            document.getElementById("view-phone").innerText = cvData.phone || dummy.phone || "";
+            document.getElementById("view-summary").innerText = cvData.summary || dummy.summary || "";
+            document.getElementById("view-experience").innerText = cvData.experience || dummy.experience || "";
+            document.getElementById("view-education").innerText = cvData.education || dummy.education || "";
+            document.getElementById("view-skills").innerText = cvData.skills || dummy.skills || "";
+            document.getElementById("view-projects").innerText = cvData.projects || dummy.projects || "";
+
+            if (cvData.profilePic) {
+                updateDPUI(cvData.profilePic);
+            }
+        });
+    </script>
+</body>
+
+</html>
